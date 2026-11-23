@@ -1,4 +1,4 @@
-# Verification — v0.2.0
+# Verification — v0.2.1
 
 Checks performed for this build on 23 November 2026:
 

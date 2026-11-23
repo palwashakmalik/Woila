@@ -21,8 +21,8 @@ git init -b main
 git add .
 git commit -m "Implement Woila language, CLI, browser editor and Chrome extension"
 gh repo create palwashakmalik/Woila --public --source=. --remote=origin --push
-git tag v0.2.0
-git push origin v0.2.0
+git tag v0.2.1
+git push origin v0.2.1
 gh repo view palwashakmalik/Woila --web
 ```
 

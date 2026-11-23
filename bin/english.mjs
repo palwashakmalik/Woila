@@ -41,7 +41,7 @@ if(command==='mcp-config'){
     await mkdir(folder); // Deliberately refuse to overwrite any existing directory.
     const starter=await readFile(new URL('../examples/hello.eng',import.meta.url),'utf8');
     await writeFile(join(folder,'main.eng'),starter,{flag:'wx'});
-    await writeFile(join(folder,'package.json'),JSON.stringify({name:name.toLowerCase(),version:'0.1.0',private:true,scripts:{start:'woila run main.eng',check:'woila check main.eng',studio:'woila studio'},devDependencies:{'@palwashakmalik/woila':`git+https://github.com/palwashakmalik/Woila.git#v${version}`}},null,2)+'\n',{flag:'wx'});
+    await writeFile(join(folder,'package.json'),JSON.stringify({name:name.toLowerCase(),version:'0.1.0',private:true,scripts:{start:'woila run main.eng',check:'woila check main.eng',studio:'woila studio'},devDependencies:{'@palwashakmalik/woila':`https://github.com/palwashakmalik/Woila/releases/download/v${version}/palwashakmalik-woila-${version}.tgz`}},null,2)+'\n',{flag:'wx'});
     await writeFile(join(folder,'README.md'),`# ${name}\n\nEdit main.eng to write your program.\n\nRun npm install once, then npm start.\nUse npm run studio for the browser editor.\n`,{flag:'wx'});
     if(!skipInstall){
       console.log(`Created ${name}. Installing the pinned compiler dependency...`);

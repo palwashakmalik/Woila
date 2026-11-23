@@ -4,14 +4,14 @@ Woila 0.2 adds a local MCP server over stdio. Claude Desktop and Claude Code sta
 
 ## Install or upgrade
 
-Install Node.js 24+ and Git, then:
+Install Node.js 24+ and npm, then:
 
 ```sh
-npm install --global git+https://github.com/palwashakmalik/Woila.git#v0.2.0
+npm install --global https://github.com/palwashakmalik/Woila/releases/download/v0.2.1/palwashakmalik-woila-0.2.1.tgz
 woila --version
 ```
 
-The reported version should be `0.2.0`. A source checkout also works: run `npm ci` and `npm run build`, then substitute `node bin/english.mjs` for `woila` in commands below. You do not need a GitHub token for this public repository or an API key for Woila.
+The reported version should be `0.2.1`. The prebuilt archive avoids global Git-install link/lifecycle issues and needs no Git installation. A source checkout also works: run `npm ci` and `npm run build`, then substitute `node bin/english.mjs` for `woila` in commands below. You do not need a GitHub token for this public repository or an API key for Woila.
 
 ## Claude Desktop (Windows, macOS or Linux)
 

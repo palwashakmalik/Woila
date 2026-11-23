@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Install the CLI and starter dependency from prebuilt GitHub release tarballs, avoiding global Git-install link/lifecycle issues.
+- Local MCP installation now needs Node.js and npm, without a Git checkout or a compiler build.
+
 ## 0.2.0
 
 - Add `woila mcp`, a local stdio MCP server for Claude Desktop, Claude Code and other compatible clients.

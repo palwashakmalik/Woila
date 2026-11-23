@@ -4,10 +4,10 @@ A working structured-English programming language with a TypeScript compiler, No
 
 ## Start from GitHub
 
-Requires Node.js 24+, npm and Git. The package builds automatically during Git installation:
+Requires Node.js 24+ and npm. The prebuilt release needs no Git checkout or compiler build:
 
 ```sh
-npx --yes --package=github:palwashakmalik/Woila woila init my-app
+npx --yes --package=https://github.com/palwashakmalik/Woila/releases/download/v0.2.1/palwashakmalik-woila-0.2.1.tgz woila init my-app
 cd my-app
 npm start
 ```
@@ -17,12 +17,12 @@ npm start
 To install the CLI directly:
 
 ```sh
-npm install --global git+https://github.com/palwashakmalik/Woila.git#v0.2.0
+npm install --global https://github.com/palwashakmalik/Woila/releases/download/v0.2.1/palwashakmalik-woila-0.2.1.tgz
 woila --help
 woila studio
 ```
 
-`studio` starts the local browser editor at `http://127.0.0.1:4173` from any working directory. This is GitHub distribution; no npm registry publication is required. Starter projects pin the compiler to the version that created them.
+`studio` starts the local browser editor at `http://127.0.0.1:4173` from any working directory. This installs a prebuilt GitHub release; no npm registry publication is required. Starter projects pin the compiler to the version that created them.
 
 ## Connect to Claude locally
 

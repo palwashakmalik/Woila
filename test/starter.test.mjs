@@ -11,7 +11,7 @@ test('init makes a valid starter and refuses to overwrite existing files',async(
     let result=spawnSync(process.execPath,[cli,'init','my-app','--skip-install'],{cwd:temp,encoding:'utf8'});assert.equal(result.status,0,result.stderr);
     const project=join(temp,'my-app');const pkg=JSON.parse(await readFile(join(project,'package.json'),'utf8'));
     const metadata=JSON.parse(await readFile('package.json','utf8'));
-    assert.equal(pkg.scripts.start,'woila run main.eng');assert.equal(pkg.devDependencies['@palwashakmalik/woila'],`git+https://github.com/palwashakmalik/Woila.git#v${metadata.version}`);
+    assert.equal(pkg.scripts.start,'woila run main.eng');assert.equal(pkg.devDependencies['@palwashakmalik/woila'],`https://github.com/palwashakmalik/Woila/releases/download/v${metadata.version}/palwashakmalik-woila-${metadata.version}.tgz`);
     result=spawnSync(process.execPath,[cli,'run',join(project,'main.eng')],{encoding:'utf8'});assert.equal(result.status,0,result.stderr);assert.match(result.stdout,/Hello, world!/);
     await writeFile(join(project,'main.eng'),'print "keep my work"');
     result=spawnSync(process.execPath,[cli,'init','my-app','--skip-install'],{cwd:temp,encoding:'utf8'});assert.equal(result.status,1);assert.match(result.stderr,/already exists/);assert.equal(await readFile(join(project,'main.eng'),'utf8'),'print "keep my work"');

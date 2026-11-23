@@ -150,4 +150,4 @@ To build distributable ZIP archives, install Python 3 and run `npm run package`.
 | `test/` | Compiler, runtime, CLI and HTTP tests |
 | `docs/` | Rules, grammar, architecture and publishing |
 
-MIT licensed. The working name and version are placeholders for the project's first implementation; this repository makes no claim of registry, store or production certification.
+Woila is MIT licensed. This initial implementation makes no claim of registry, store or production certification.

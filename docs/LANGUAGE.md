@@ -2,7 +2,7 @@
 
 Woila is a deterministic, structured programming language. You write exact English sentences. No AI, account, API key, or JavaScript knowledge is required to write a program. The TypeScript implementation compiles `.eng` files into Node.js JavaScript. The browser executes the same checked syntax through an interpreter.
 
-This is the first working release of the language. The name is a working name, not a final brand decision. It follows the chosen direction: sentence-oriented syntax, explicit `end`, static types with explicit unsafe sections, async/wait, separate schemas and models, English operators and grouping, full argument clauses, natural properties, English lists and record constructors, and explicit result phrases.
+This is the first working release of Woila. It follows the chosen direction: sentence-oriented syntax, explicit `end`, static types with explicit unsafe sections, async/wait, separate schemas and models, English operators and grouping, full argument clauses, natural properties, English lists and record constructors, and explicit result phrases.
 
 ## Basic writing rules
 

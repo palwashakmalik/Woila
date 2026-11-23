@@ -68,7 +68,7 @@ export async function run(source:string,options:{print?:(text:string)=>void;maxS
         case 'store':rt.store(s.get(n.model),await expr(n.value,s));break;
         case 'update':{const key=await expr(n.key,s);rt.update(s.get(n.model),n.field,key,await expr(n.value,s));break;}
         case 'remove':rt.remove(s.get(n.model),n.field,await expr(n.key,s));break;
-        case 'use':case 'route':case 'listen':throw new Error('Servers and external modules run with the Node CLI. Download this program and use english run.');
+        case 'use':case 'route':case 'listen':throw new Error('Servers and external modules run with the Node CLI. Download this program and use woila run.');
         default:throw new Error(`Unsupported sentence ${n.kind}.`);
       }
     }catch(error:any){if(error instanceof ReturnValue||error instanceof EnglishError)throw error;throw new EnglishError(error.message??String(error),n.line);}}

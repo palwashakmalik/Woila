@@ -5,15 +5,15 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawn} from 'node:child_process';
 import {compile} from '../dist/compiler.js';
 const args=process.argv.slice(2),command=args.shift();
-const help=`EngScript 0.1.0 — Node 24 or newer
+const help=`Woila 0.1.0 — Node 24 or newer
 
-engscript init my-app
-engscript studio
+woila init my-app
+woila studio
 
-english check program.eng
-english compile program.eng [--out output.mjs]
-english run program.eng [--timeout milliseconds]
-english --help
+woila check program.eng
+woila compile program.eng [--out output.mjs]
+woila run program.eng [--timeout milliseconds]
+woila --help
 
 Compile creates JavaScript and english-runtime.mjs next to the output.
 Run executes your program with normal Node permissions. Only run trusted programs.
@@ -26,13 +26,13 @@ if(command==='studio'){
   await import('../scripts/serve.mjs');
 }else if(command==='init'){
   const name=args.shift(),skipInstall=args.length===1&&args[0]==='--skip-install';
-  if(!name||(args.length&&!skipInstall)||!/^[A-Za-z][A-Za-z0-9_-]*$/.test(name)){console.error('Use engscript init NAME [--skip-install] with a simple new folder name.');process.exit(1);}
+  if(!name||(args.length&&!skipInstall)||!/^[A-Za-z][A-Za-z0-9_-]*$/.test(name)){console.error('Use woila init NAME [--skip-install] with a simple new folder name.');process.exit(1);}
   const folder=resolve(name);
   try{
     await mkdir(folder); // Deliberately refuse to overwrite any existing directory.
     const starter=await readFile(new URL('../examples/hello.eng',import.meta.url),'utf8');
     await writeFile(join(folder,'main.eng'),starter,{flag:'wx'});
-    await writeFile(join(folder,'package.json'),JSON.stringify({name:name.toLowerCase(),version:'0.1.0',private:true,scripts:{start:'engscript run main.eng',check:'engscript check main.eng',studio:'engscript studio'},devDependencies:{'@palwashakmalik/engscript':'git+https://github.com/palwashakmalik/EngScript.git#v0.1.0'}},null,2)+'\n',{flag:'wx'});
+    await writeFile(join(folder,'package.json'),JSON.stringify({name:name.toLowerCase(),version:'0.1.0',private:true,scripts:{start:'woila run main.eng',check:'woila check main.eng',studio:'woila studio'},devDependencies:{'@palwashakmalik/woila':'git+https://github.com/palwashakmalik/Woila.git#v0.1.0'}},null,2)+'\n',{flag:'wx'});
     await writeFile(join(folder,'README.md'),`# ${name}\n\nEdit main.eng to write your program.\n\nRun npm install once, then npm start.\nUse npm run studio for the browser editor.\n`,{flag:'wx'});
     if(!skipInstall){
       console.log(`Created ${name}. Installing the pinned compiler dependency...`);
@@ -44,7 +44,7 @@ if(command==='studio'){
   }catch(error){console.error(error.code==='EEXIST'?`Folder ${name} already exists; no existing files were changed.`:error.message);process.exitCode=1;}
 }else{
 try {
-  if(!['check','compile','run'].includes(command))throw new Error('Unknown command. Use english --help.');
+  if(!['check','compile','run'].includes(command))throw new Error('Unknown command. Use woila --help.');
   const input=args.shift();if(!input||input.startsWith('--'))throw new Error('Supply a .eng source file.');
   const sourcePath=resolve(input);if(extname(sourcePath)!=='.eng')throw new Error('Source files must end with .eng.');
   let output=sourcePath.replace(/\.eng$/,'.generated.mjs'),timeout=0;

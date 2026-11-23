@@ -1,4 +1,4 @@
-# EngScript
+# Woila
 
 A working structured-English programming language with a TypeScript compiler, Node CLI, offline browser editor and Chrome extension.
 
@@ -7,19 +7,19 @@ A working structured-English programming language with a TypeScript compiler, No
 Requires Node.js 24+, npm and Git. The package builds automatically during Git installation:
 
 ```sh
-npx --yes --package=github:palwashakmalik/EngScript engscript init my-app
+npx --yes --package=github:palwashakmalik/Woila woila init my-app
 cd my-app
 npm start
 ```
 
-`init` creates a starter project, installs its pinned compiler dependency, and never overwrites an existing directory. Then `npm start` runs `main.eng`. Use `--skip-install` after the project name to generate files offline and install later. The commands `english` and `engscript` are aliases.
+`init` creates a starter project, installs its pinned compiler dependency, and never overwrites an existing directory. Then `npm start` runs `main.eng`. Use `--skip-install` after the project name to generate files offline and install later. The commands `english` and `woila` are aliases.
 
 To install the CLI directly:
 
 ```sh
-npm install --global git+https://github.com/palwashakmalik/EngScript.git#v0.1.0
-engscript --help
-engscript studio
+npm install --global git+https://github.com/palwashakmalik/Woila.git#v0.1.0
+woila --help
+woila studio
 ```
 
 `studio` starts the local browser editor at `http://127.0.0.1:4173` from any working directory. This is GitHub distribution; no npm registry publication is required. The initial starter requires the repository's `v0.1.0` tag to be available.
@@ -35,7 +35,7 @@ No AI service, token, paid plan, runtime dependency or account is required. Sour
 
 ## Run a program
 
-Install Node.js **24 or newer**, extract this project, and open a terminal in its `plain-english` folder:
+Install Node.js **24 or newer**, extract this project, and open a terminal in its `woila` folder:
 
 ```sh
 npm run build
@@ -55,9 +55,9 @@ To install the command globally from your local copy:
 
 ```sh
 npm install --global .
-english check examples/functions.eng
-english run examples/functions.eng
-english compile examples/hello.eng
+woila check examples/functions.eng
+woila run examples/functions.eng
+woila compile examples/hello.eng
 node examples/hello.generated.mjs
 ```
 
@@ -79,8 +79,8 @@ Do not open the HTML using `file://`; JavaScript module workers need the local s
 2. For a source checkout, first run `npm run build`. Downloaded release archives already include generated files.
 3. Open `chrome://extensions` in Chrome.
 4. Enable **Developer mode**.
-5. Click **Load unpacked** and select the folder containing `manifest.json`: `plain-english/extension` in the full archive, or `plain-english-extension` in the extension archive.
-6. Open Chrome's Extensions menu and click **Plain English Studio**. It opens a full editor tab.
+5. Click **Load unpacked** and select the folder containing `manifest.json`: `woila/extension` in the full archive, or `woila-extension` in the extension archive.
+6. Open Chrome's Extensions menu and click **Woila Studio**. It opens a full editor tab.
 
 The extension requests no website access, host permissions, accounts, or API keys. It works offline after loading. Chrome's Developer mode is required because the extension has not been published in the Chrome Web Store. Organization policy may disallow unpacked extensions; in that case use the local web editor. This project does not change Chrome settings automatically.
 

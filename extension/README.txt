@@ -1,11 +1,11 @@
-Plain English Studio — Chrome extension 0.1.0
+Woila Studio — Chrome extension 0.1.0
 
 1. Extract this entire folder; do not select the ZIP file in Chrome.
 2. Open chrome://extensions in Chrome.
 3. Enable Developer mode.
 4. Click Load unpacked.
 5. Select this folder, the one containing manifest.json.
-6. Click Plain English Studio from Chrome's Extensions menu.
+6. Click Woila Studio from Chrome's Extensions menu.
 7. Select an example and click Run program.
 
 The downloaded release includes built files and needs no Node installation

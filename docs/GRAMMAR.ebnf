@@ -1,4 +1,4 @@
-(* Plain English 0.1 — newline-delimited statements. Lexical whitespace omitted. *)
+(* Woila 0.1 — newline-delimited statements. Lexical whitespace omitted. *)
 program = { newline | statement } ;
 statement = declaration | assignment | print | conditional | while | for
           | function | return | do | raise | try | unsafe | schema | model

@@ -65,8 +65,8 @@ end
 listen on 3000
 `};
 let worker,timer,running=false;
-try{$('source').value=localStorage.getItem('plain-english-source')??examples.hello;}catch{$('source').value=examples.hello;}
-function save(){try{localStorage.setItem('plain-english-source',$('source').value);}catch{}}
+try{$('source').value=localStorage.getItem('woila-source')??examples.hello;}catch{$('source').value=examples.hello;}
+function save(){try{localStorage.setItem('woila-source',$('source').value);}catch{}}
 function stop(message){worker?.terminate();worker=undefined;clearTimeout(timer);running=false;$('run').disabled=false;$('stop').disabled=true;$('status').textContent=message;}
 function check(){save();try{const result=compile($('source').value);$('generated').textContent=result.code;$('status').textContent='Valid';return true;}catch(error){$('output').textContent=error.message;$('status').textContent='Needs a fix';return false;}}
 function execute(){if(running)return;if(!check())return;$('output').textContent='';$('status').textContent='Running';$('run').disabled=true;$('stop').disabled=false;running=true;worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});timer=setTimeout(()=>{const text='Stopped after 5 seconds. Use the Node CLI for longer programs.';$('output').textContent+='\n'+text;stop('Time limit');},5000);worker.onmessage=({data})=>{if(data.type==='print')$('output').textContent+=data.text+'\n';else if(data.type==='error'){$('output').textContent+=data.text;stop('Needs a fix');}else if(data.type==='done'){if(!$('output').textContent)$('output').textContent='Program finished without output.';stop('Finished');}};worker.onerror=event=>{$('output').textContent=event.message||'Worker failed to start.';stop('Error');};worker.postMessage($('source').value);}

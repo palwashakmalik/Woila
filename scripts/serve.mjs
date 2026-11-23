@@ -6,4 +6,4 @@ const root=fileURLToPath(new URL('../web',import.meta.url)),types={'.html':'text
 const server=createServer(async(req,res)=>{
   try{const url=new URL(req.url,'http://localhost');const path=resolve(root,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));if(!path.startsWith(root+sep)){res.writeHead(403);res.end();return;}const content=await readFile(path);res.writeHead(200,{'content-type':types[extname(path)]??'application/octet-stream','x-content-type-options':'nosniff'});res.end(content);}catch{res.writeHead(404);res.end('Not found');}
 });
-server.listen(4173,'127.0.0.1',()=>console.log('Plain English Studio: http://127.0.0.1:4173'));
+server.listen(4173,'127.0.0.1',()=>console.log('Woila Studio: http://127.0.0.1:4173'));

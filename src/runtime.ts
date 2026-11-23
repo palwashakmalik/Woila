@@ -53,7 +53,7 @@ export function createRuntime(schemas:Record<string,Record<string,string>>={}) {
       });
       server.requestTimeout=15000;server.headersTimeout=10000;
       await new Promise<void>((resolve,reject)=>{server.once('error',reject);server.listen(port,host,()=>{server.off('error',reject);resolve();});});
-      console.log(`Plain English server: http://${host}:${(server.address() as any).port}`);
+      console.log(`Woila server: http://${host}:${(server.address() as any).port}`);
       return server;
     }
   };

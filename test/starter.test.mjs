@@ -6,11 +6,11 @@ import {tmpdir} from 'node:os';
 import {spawnSync,spawn} from 'node:child_process';
 const cli=resolve('bin/english.mjs');
 test('init makes a valid starter and refuses to overwrite existing files',async()=>{
-  const temp=await mkdtemp(join(tmpdir(),'engscript-starter-'));
+  const temp=await mkdtemp(join(tmpdir(),'woila-starter-'));
   try{
     let result=spawnSync(process.execPath,[cli,'init','my-app','--skip-install'],{cwd:temp,encoding:'utf8'});assert.equal(result.status,0,result.stderr);
     const project=join(temp,'my-app');const pkg=JSON.parse(await readFile(join(project,'package.json'),'utf8'));
-    assert.equal(pkg.scripts.start,'engscript run main.eng');assert.match(pkg.devDependencies['@palwashakmalik/engscript'],/EngScript.git#v0.1.0$/);
+    assert.equal(pkg.scripts.start,'woila run main.eng');assert.match(pkg.devDependencies['@palwashakmalik/woila'],/Woila.git#v0.1.0$/);
     result=spawnSync(process.execPath,[cli,'run',join(project,'main.eng')],{encoding:'utf8'});assert.equal(result.status,0,result.stderr);assert.match(result.stdout,/Hello, world!/);
     await writeFile(join(project,'main.eng'),'print "keep my work"');
     result=spawnSync(process.execPath,[cli,'init','my-app','--skip-install'],{cwd:temp,encoding:'utf8'});assert.equal(result.status,1);assert.match(result.stderr,/already exists/);assert.equal(await readFile(join(project,'main.eng'),'utf8'),'print "keep my work"');
@@ -18,11 +18,11 @@ test('init makes a valid starter and refuses to overwrite existing files',async(
   }finally{await rm(temp,{recursive:true,force:true});}
 });
 test('studio serves installed assets from an unrelated working directory',async()=>{
-  const temp=await mkdtemp(join(tmpdir(),'engscript-studio-'));let child;
+  const temp=await mkdtemp(join(tmpdir(),'woila-studio-'));let child;
   try{
     child=spawn(process.execPath,[cli,'studio'],{cwd:temp,stdio:['ignore','pipe','pipe']});
     await new Promise((accept,reject)=>{const timer=setTimeout(()=>reject(new Error('studio did not start')),5000);child.stdout.once('data',()=>{clearTimeout(timer);accept();});child.on('error',reject);child.on('exit',code=>{clearTimeout(timer);reject(new Error(`studio exited ${code}`));});});
-    const response=await fetch('http://127.0.0.1:4173',{signal:AbortSignal.timeout(3000)});assert.equal(response.status,200);assert.match(await response.text(),/Plain English Studio/);
+    const response=await fetch('http://127.0.0.1:4173',{signal:AbortSignal.timeout(3000)});assert.equal(response.status,200);assert.match(await response.text(),/Woila Studio/);
     const module=await fetch('http://127.0.0.1:4173/lib/compiler.js',{signal:AbortSignal.timeout(3000)});assert.equal(module.status,200);assert.match(await module.text(),/function compile/);
   }finally{if(child&&child.exitCode===null){child.kill();await new Promise(resolve=>child.once('exit',resolve));}await rm(temp,{recursive:true,force:true});}
 });

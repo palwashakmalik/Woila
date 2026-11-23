@@ -1,6 +1,6 @@
-# Plain English language reference — 0.1
+# Woila language reference — 0.1
 
-Plain English is a deterministic, structured programming language. You write exact English sentences. No AI, account, API key, or JavaScript knowledge is required to write a program. The TypeScript implementation compiles `.eng` files into Node.js JavaScript. The browser executes the same checked syntax through an interpreter.
+Woila is a deterministic, structured programming language. You write exact English sentences. No AI, account, API key, or JavaScript knowledge is required to write a program. The TypeScript implementation compiles `.eng` files into Node.js JavaScript. The browser executes the same checked syntax through an interpreter.
 
 This is the first working release of the language. The name is a working name, not a final brand decision. It follows the chosen direction: sentence-oriented syntax, explicit `end`, static types with explicit unsafe sections, async/wait, separate schemas and models, English operators and grouping, full argument clauses, natural properties, English lists and record constructors, and explicit result phrases.
 
@@ -217,7 +217,7 @@ share function double with value as number returning number
 end
 ```
 
-Save as `math.eng`, compile it to `math.generated.mjs`, then `use "./math.generated.mjs" as math` in another program. Call its `double` export through an unsafe external call. Shared functions use positional arguments across the JavaScript module boundary. English modules currently share compiled JavaScript, without cross-file static signature checking. Relative module paths in `english run` resolve from the source file; after `compile`, they resolve from the output file. Move the module's runtime alongside it if distributing compiled output.
+Save as `math.eng`, compile it to `math.generated.mjs`, then `use "./math.generated.mjs" as math` in another program. Call its `double` export through an unsafe external call. Shared functions use positional arguments across the JavaScript module boundary. English modules currently share compiled JavaScript, without cross-file static signature checking. Relative module paths in `woila run` resolve from the source file; after `compile`, they resolve from the output file. Move the module's runtime alongside it if distributing compiled output.
 
 ## Built-in calls
 

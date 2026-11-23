@@ -1,12 +1,12 @@
 {
-  "name": "@palwashakmalik/engscript",
+  "name": "@palwashakmalik/woila",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "EngScript: a structured English language with a compiler, CLI and offline browser editor",
+  "description": "Woila: a structured English language with a compiler, CLI and offline browser editor",
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/palwashakmalik/EngScript.git" },
-  "bin": { "engscript": "bin/english.mjs", "english": "bin/english.mjs" },
+  "repository": { "type": "git", "url": "https://github.com/palwashakmalik/Woila.git" },
+  "bin": { "woila": "bin/english.mjs", "english": "bin/english.mjs" },
   "exports": "./dist/compiler.js",
   "files": ["bin", "dist", "src", "scripts/build.mjs", "scripts/serve.mjs", "web", "extension", "docs", "examples", "README.md", "LICENSE"],
   "scripts": {

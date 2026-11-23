@@ -1,4 +1,4 @@
-# Contributing to EngScript
+# Contributing to Woila
 
 Use Node 24 or newer. Fork the repository, create a branch, and run `npm ci` followed by `npm test`.
 

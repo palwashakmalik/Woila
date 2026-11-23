@@ -1,0 +1,37 @@
+# A local JSON API. Data lasts until the process stops.
+schema Person
+  field id as number
+  field name as text
+end
+model people for Person
+
+serve get "/health"
+  reply "Ready"
+end
+
+serve get "/people"
+  reply all records in people
+end
+
+serve post "/people"
+  keep person be Person as validate the body of request as Person
+  store person in people
+  reply person with status 201
+end
+
+serve put "/people"
+  keep person be Person as validate the body of request as Person
+  update records in people where id equals the id of person using person
+  reply person
+end
+
+serve delete "/people/:id"
+  unsafe
+    keep identifier be text as the id of the params of request
+    keep identifierNumber be number as the result of numberOf with value as identifier end call
+    remove records in people where id equals identifierNumber
+  end
+  reply "Removed matching records."
+end
+
+listen on 3000

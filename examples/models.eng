@@ -1,0 +1,10 @@
+schema Person
+  field id as number
+  field name as text
+end
+model people for Person
+store a new Person with id as 1 and with name as "Ali" end record in people
+update records in people where id equals 1 using a new Person with id as 1 and with name as "Ali Imam" end record
+print the result of textOf with value as all records in people end call
+remove records in people where id equals 1
+print the result of length with value as all records in people end call

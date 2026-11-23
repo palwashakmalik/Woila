@@ -1,0 +1,8 @@
+# Exact English sentences, one per line.
+keep greeting be text as "Hello, world!"
+print greeting
+let count be number as 3
+repeat while count is greater than 0
+  print count
+  set count to count minus 1
+end

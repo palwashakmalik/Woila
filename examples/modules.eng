@@ -1,0 +1,6 @@
+# Built-in Node module. npm packages use the same syntax.
+use "node:path" as paths
+unsafe
+  keep result be text as the result of basename from paths with path as "/home/ali/hello.eng" end call
+  print result
+end

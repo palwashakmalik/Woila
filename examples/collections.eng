@@ -1,0 +1,10 @@
+keep scores be list of number as a list containing 12 then 24 then 36 end list
+let total be number as 0
+for each score in scores
+  set total to total plus score
+end
+print total
+print item 2 of scores
+print item 99 of scores
+print the result of length with value as scores end call
+print the quantity 2 plus 3 end quantity times 4

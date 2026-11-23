@@ -1,0 +1,10 @@
+define async function greet with name as text returning text
+  do wait the result of pause with milliseconds as 10 end call
+  return "Hello, " plus name
+end
+print wait the result of greet with name as "Ali" end call
+try
+  print 10 divided by 0
+on error problem
+  print "Recovered from an error."
+end

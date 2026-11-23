@@ -1,0 +1,53 @@
+(* Plain English 0.1 — newline-delimited statements. Lexical whitespace omitted. *)
+program = { newline | statement } ;
+statement = declaration | assignment | print | conditional | while | for
+          | function | return | do | raise | try | unsafe | schema | model
+          | store | update | remove | route | reply | listen | use ;
+declaration = ( "let" | "keep" ), name, "be", type, "as", expression, newline ;
+assignment = "set", name, "to", expression, newline ;
+print = "print", expression, newline ;
+conditional = "if", expression, newline, block,
+              [ "otherwise", newline, block ], "end", newline ;
+while = "repeat while", expression, newline, block, "end", newline ;
+for = "for each", name, "in", expression, newline, block, "end", newline ;
+function = ( "define" | "share" ), [ "async" ], "function", name,
+           [ "with", parameter, { "and", parameter } ], "returning", type,
+           newline, block, "end", newline ;
+parameter = name, "as", type ;
+return = "return", expression, newline ;
+do = "do", expression, newline ;
+raise = "raise", expression, newline ;
+try = "try", newline, block, "on error", name, newline, block, "end", newline ;
+unsafe = "unsafe", newline, block, "end", newline ;
+schema = "schema", name, newline, { "field", name, "as", type, newline }, "end", newline ;
+model = "model", name, "for", name, newline ;
+store = "store", expression, "in", name, newline ;
+update = "update records in", name, "where", name, "equals", expression, "using", expression, newline ;
+remove = "remove records in", name, "where", name, "equals", expression, newline ;
+route = "serve", method, text, newline, block, "end", newline ;
+method = "get" | "post" | "put" | "patch" | "delete" ;
+reply = "reply", expression, [ "with status", number ], newline ;
+listen = "listen on", expression, newline ;
+use = "use", text, "as", name, newline ;
+block = { statement } ;
+type = "number" | "text" | "boolean" | "void" | "any" | name
+     | "optional", type | "list of", type ;
+expression = primary, { operator, primary } ; (* precedence: LANGUAGE.md *)
+primary = number | text | "true" | "false" | "nothing" | name | "request"
+        | "not", expression | "wait", expression
+        | "the quantity", expression, "end quantity"
+        | "the result of", name, [ "from", name ],
+          [ "with", argument, { "and with", argument } ], "end call"
+        | "a list containing", [ expression, { "then", expression } ], "end list"
+        | "a new", name, [ "with", argument, { "and with", argument } ], "end record"
+        | "the", name, "of", primary
+        | "item", expression, "of", primary
+        | "all records in", name
+        | "validate", expression, "as", name ;
+argument = name, "as", expression ;
+operator = "plus" | "minus" | "times" | "divided by" | "remainder of"
+         | "equals" | "is not equal to" | "is greater than" | "is less than"
+         | "is greater than or equal to" | "is less than or equal to" | "and" | "or" ;
+(* The two-token delimiter "and with" takes priority over boolean "and".
+   Names, quoted JSON text and decimal numbers follow the lexical rules in LANGUAGE.md.
+   Context, scope, type, return-path and HTTP constraints are enforced after parsing. *)

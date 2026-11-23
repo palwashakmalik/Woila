@@ -1,0 +1,11 @@
+node_modules/
+dist/
+release/
+*.generated.mjs
+*.tmp
+web/lib/
+extension/lib/
+extension/index.html
+extension/app.js
+extension/style.css
+extension/worker.js

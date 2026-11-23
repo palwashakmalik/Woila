@@ -1,0 +1,21 @@
+schema Person
+  field name as text
+  field age as number
+  field nickname as optional text
+end
+
+define function greet with person as Person returning text
+  return "Hello, " plus the name of person
+end
+
+define function factorial with value as number returning number
+  if value is less than or equal to 1
+    return 1
+  otherwise
+    return value times the result of factorial with value as value minus 1 end call
+  end
+end
+
+keep person be Person as a new Person with name as "Ali" and with age as 28 end record
+print the result of greet with person as person end call
+print the result of factorial with value as 5 end call

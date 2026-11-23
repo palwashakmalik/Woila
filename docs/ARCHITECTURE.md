@@ -6,7 +6,13 @@
 
 `compile(source)` returns `{ ast, code }`, or throws `EnglishError` with line and column. Use it from `dist/compiler.js` after building. Generated modules import `./english-runtime.mjs`; the CLI places this file alongside the output. The generated line comments help locate original code, but are not source maps. Syntax error locations include exact token columns; static errors currently point to column 1 of the relevant source line.
 
-The source is TypeScript. Node 24's built-in syntax stripping produces JavaScript without a dependency download. This is not a substitute for host-language `tsc` analysis; the release's executable verification is the test suite. English program checking is implemented in the compiler and always occurs before execution.
+The source is TypeScript. Node 24's built-in syntax stripping produces JavaScript without a compiler dependency. The local MCP adapter separately depends on the official MCP SDK and Zod. This is not a substitute for host-language `tsc` analysis; the release's executable verification is the test suite. English program checking is implemented in the compiler and always occurs before execution.
+
+## Local MCP adapter
+
+`woila mcp` lazily loads `dist/mcp.js` and serves the official SDK's stdio transport. A server factory supports both legacy initialization and modern 2026-07-28 discovery. The adapter exposes bundled-reference lookup, static source checking and compilation only. It does not execute source, import source-declared modules, read arbitrary files, write output files or start an HTTP server. Source input is bounded and protocol messages have a 2 MiB transport limit. Diagnostic and compilation results have declared output schemas. Tool annotations mark the operations read-only and idempotent.
+
+The CLI's `mcp-config` prints absolute Node and CLI paths without changing client configuration. Integration tests launch actual stdio subprocesses through the generated config using the official MCP client, exercise both protocol eras, and check resource access, invalid source, standalone compiled output and clean shutdown. The adapter is not copied into browser/extension bundles. See `MCP.md` for client setup.
 
 ## Node execution
 

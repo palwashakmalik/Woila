@@ -5,10 +5,13 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawn} from 'node:child_process';
 import {compile} from '../dist/compiler.js';
 const args=process.argv.slice(2),command=args.shift();
-const help=`Woila 0.1.0 — Node 24 or newer
+const {version}=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
+const help=`Woila ${version} — Node 24 or newer
 
 woila init my-app
 woila studio
+woila mcp
+woila mcp-config
 
 woila check program.eng
 woila compile program.eng [--out output.mjs]
@@ -20,8 +23,14 @@ Run executes your program with normal Node permissions. Only run trusted program
 Browser extension: load the extension folder as an unpacked Chrome extension.
 `;
 if(!command||command==='--help'){console.log(help);process.exit(0);}
-if(command==='--version'){console.log('0.1.0');process.exit(0);}
-if(command==='studio'){
+if(command==='--version'){console.log(version);process.exit(0);}
+if(command==='mcp-config'){
+  if(args.length){console.error('mcp-config takes no arguments.');process.exit(1);}
+  console.log(JSON.stringify({mcpServers:{woila:{command:process.execPath,args:[fileURLToPath(import.meta.url),'mcp']}}},null,2));
+}else if(command==='mcp'){
+  if(args.length){console.error('Use woila mcp without arguments. Your MCP client starts and communicates with this stdio server.');process.exit(1);}
+  try{const {startMcpServer}=await import('../dist/mcp.js');startMcpServer();}catch(error){console.error('Woila MCP failed to start: '+error.message);process.exitCode=1;}
+}else if(command==='studio'){
   if(args.length){console.error('studio takes no arguments.');process.exit(1);}
   await import('../scripts/serve.mjs');
 }else if(command==='init'){
@@ -32,7 +41,7 @@ if(command==='studio'){
     await mkdir(folder); // Deliberately refuse to overwrite any existing directory.
     const starter=await readFile(new URL('../examples/hello.eng',import.meta.url),'utf8');
     await writeFile(join(folder,'main.eng'),starter,{flag:'wx'});
-    await writeFile(join(folder,'package.json'),JSON.stringify({name:name.toLowerCase(),version:'0.1.0',private:true,scripts:{start:'woila run main.eng',check:'woila check main.eng',studio:'woila studio'},devDependencies:{'@palwashakmalik/woila':'git+https://github.com/palwashakmalik/Woila.git#v0.1.0'}},null,2)+'\n',{flag:'wx'});
+    await writeFile(join(folder,'package.json'),JSON.stringify({name:name.toLowerCase(),version:'0.1.0',private:true,scripts:{start:'woila run main.eng',check:'woila check main.eng',studio:'woila studio'},devDependencies:{'@palwashakmalik/woila':`git+https://github.com/palwashakmalik/Woila.git#v${version}`}},null,2)+'\n',{flag:'wx'});
     await writeFile(join(folder,'README.md'),`# ${name}\n\nEdit main.eng to write your program.\n\nRun npm install once, then npm start.\nUse npm run studio for the browser editor.\n`,{flag:'wx'});
     if(!skipInstall){
       console.log(`Created ${name}. Installing the pinned compiler dependency...`);

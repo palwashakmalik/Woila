@@ -7,6 +7,7 @@
 - Offline browser editor and unpacked Chrome extension.
 - Schema validation, in-memory model CRUD and local HTTP endpoints.
 - Automated compiler/interpreter, CLI, worker and HTTP tests.
+- Local MCP adapter for Claude Desktop/Code: references, checking and compilation.
 
 ## Next
 

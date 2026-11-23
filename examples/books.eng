@@ -1,0 +1,14 @@
+schema Book
+  field title as text
+  field name as text
+  field description as text
+end
+
+model books for Book
+store a new Book with title as "Learning Woila" and with name as "Book One" and with description as "A beginner's guide to Woila." end record in books
+
+serve get "/books"
+  reply all records in books
+end
+
+listen on 3000

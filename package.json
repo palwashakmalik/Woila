@@ -1,14 +1,33 @@
 {
   "name": "@palwashakmalik/woila",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Woila: a structured English language with a compiler, CLI and offline browser editor",
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/palwashakmalik/Woila.git" },
-  "bin": { "woila": "bin/english.mjs", "english": "bin/english.mjs" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palwashakmalik/Woila.git"
+  },
+  "bin": {
+    "woila": "bin/english.mjs",
+    "english": "bin/english.mjs"
+  },
   "exports": "./dist/compiler.js",
-  "files": ["bin", "dist", "src", "scripts/build.mjs", "scripts/serve.mjs", "web", "extension", "docs", "examples", "README.md", "LICENSE"],
+  "files": [
+    "bin",
+    "dist",
+    "src",
+    "scripts/build.mjs",
+    "scripts/serve.mjs",
+    "web",
+    "extension",
+    "docs",
+    "examples",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "node scripts/build.mjs",
     "prepare": "npm run build",
@@ -17,5 +36,14 @@
     "check": "node bin/english.mjs check examples/hello.eng",
     "package": "npm run test && node scripts/package.mjs"
   },
-  "engines": { "node": ">=24" }
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0"
+  }
 }

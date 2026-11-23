@@ -17,12 +17,32 @@ npm start
 To install the CLI directly:
 
 ```sh
-npm install --global git+https://github.com/palwashakmalik/Woila.git#v0.1.0
+npm install --global git+https://github.com/palwashakmalik/Woila.git#v0.2.0
 woila --help
 woila studio
 ```
 
-`studio` starts the local browser editor at `http://127.0.0.1:4173` from any working directory. This is GitHub distribution; no npm registry publication is required. The initial starter requires the repository's `v0.1.0` tag to be available.
+`studio` starts the local browser editor at `http://127.0.0.1:4173` from any working directory. This is GitHub distribution; no npm registry publication is required. Starter projects pin the compiler to the version that created them.
+
+## Connect to Claude locally
+
+Version 0.2 adds a stdio MCP server with `woila_reference`, `woila_check`, and `woila_compile`. It reads bundled documentation and validates/compiles source without running programs or writing files.
+
+For Claude Desktop, install Woila globally as above, then run:
+
+```sh
+woila mcp-config
+```
+
+Merge the printed `woila` entry into Claude Desktop's `claude_desktop_config.json` under `mcpServers`, save, and restart Claude. The printed config uses the actual absolute Node/CLI paths, including on Windows. Keep other configured servers in place.
+
+For Claude Code:
+
+```sh
+claude mcp add --transport stdio woila -- woila mcp
+```
+
+See [local MCP setup](docs/MCP.md) for Windows/macOS/Linux configuration, tools, examples and troubleshooting. The browser editor at port 4173 is separate from the MCP connection.
 
 ```text
 define function greet with name as text returning text
@@ -31,7 +51,7 @@ end
 print the result of greet with name as "Ali" end call
 ```
 
-No AI service, token, paid plan, runtime dependency or account is required. Source programs follow exact English patterns and are checked before execution. **Version 0.1 is an initial development release. Models use memory rather than a production database.**
+No AI service, token, paid plan or Woila account is required. Source programs follow exact English patterns and are checked before execution. The MCP adapter uses the official MCP SDK and Zod, installed by npm. **This is an experimental development release. Models use memory rather than a production database.**
 
 ## Run a program
 
@@ -116,6 +136,7 @@ Press Ctrl+C to stop the server. Restarting clears model data. For production ap
 - [Formal sentence grammar](docs/GRAMMAR.ebnf).
 - [Architecture and verification](docs/ARCHITECTURE.md).
 - [GitHub publishing](docs/GITHUB.md): push this exact project to your own account without sharing a token in chat.
+- [Local MCP setup](docs/MCP.md): connect Claude Desktop or Claude Code to Woila.
 
 ## Development and tests
 
@@ -124,7 +145,7 @@ npm ci
 npm test
 ```
 
-There are no npm dependencies. The build uses Node 24's built-in TypeScript syntax stripping; it validates supported TypeScript syntax, but does not run TypeScript's `tsc` checker. The language's own static type checker runs for English programs. Tests compare browser-interpreter behavior against compiled JavaScript and exercise real CLI and HTTP behavior.
+The build uses Node 24's built-in TypeScript syntax stripping; it validates supported TypeScript syntax, but does not run TypeScript's `tsc` checker. The language's own static type checker runs for English programs. The compiler remains independent of the MCP SDK; `woila mcp` loads that adapter only when requested. Tests compare browser-interpreter behavior against compiled JavaScript and exercise real CLI, HTTP and MCP connections.
 
 Optional browser smoke checks require Playwright and Chromium:
 
@@ -143,6 +164,7 @@ To build distributable ZIP archives, install Python 3 and run `npm run package`.
 | `src/compiler.ts` | Lexer, AST parser, static type checker, JavaScript emitter |
 | `src/runtime.ts` | Validation, standard functions, models, HTTP server |
 | `src/interpreter.ts` | Browser AST execution with step/depth limits |
+| `src/mcp.ts` | Local MCP tools, bundled resources and stdio transport |
 | `bin/english.mjs` | Check, compile and run commands |
 | `web/` | Offline editor and worker |
 | `extension/` | Chrome Manifest V3 extension |
